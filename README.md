@@ -59,4 +59,6 @@ Run in command prompt:
 ruby importcoda.rb
 ```
 
+CODA files with a different IBAN not listed in the YAML file will to skipped and moved to the out-path.
+
 Run command in scheduler to automatically process CODA files.
