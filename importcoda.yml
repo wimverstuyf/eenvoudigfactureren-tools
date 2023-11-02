@@ -1,0 +1,13 @@
+domain: eenvoudigfactureren.be
+paths:
+  in: c:\path\to_process
+  out: c:\path\done
+accounts:
+  - 
+    name: Company 1
+    apikey: MY-APIKEY-1
+    iban: BE1111111111111
+  -
+    name: Company 2
+    apikey: MY-APIKEY-2
+    iban: BE2222222222222
