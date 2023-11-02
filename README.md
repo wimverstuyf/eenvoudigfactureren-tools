@@ -1,5 +1,3 @@
-# Intro
-
 CLI tools for EenvoudigFactureren (https://eenvoudigfactureren.be).
 
 # Installation
