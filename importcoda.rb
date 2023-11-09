@@ -7,8 +7,8 @@ class ImportCoda
 		config = load_config
 
 		domain = config['domain']
-		in_path = config['paths']['in']
-		out_path = config['paths']['out']
+		in_path = config['paths']['in'].gsub('\\', '/')
+		out_path = config['paths']['out'].gsub('\\', '/')
 		accounts = config['accounts']
 
 		abort 'Domain not set' if domain.empty?
@@ -26,17 +26,17 @@ class ImportCoda
 	end
 
 	def load_config
-		return YAML.load_file("#{File.dirname(__FILE__)}/importcoda.yml") if File.exist? "#{File.dirname(__FILE__)}/importcoda.yml"
+		return YAML.load_file(File.join(File.dirname(__FILE__), "importcoda.yml")) if File.exist? File.join(File.dirname(__FILE__), "importcoda.yml")
 		abort "Config file importcoda.yml not found"
 	end
 
 	def check_path(path)
 		abort "Path #{path} doesn't exist" unless File.exist?(path) and File.directory?(path)
-		abort "Can't move files in path #{path}" unless File.writable?(path)
+		abort "Path #{path} not writable" unless File.writable?(path)
 	end
 
 	def list_files(path)
-		Dir["#{path}/*.cod"]
+		Dir[File.join(path, "*.cod")]
 	end
 
 	def import_file(file, domain, accounts)
