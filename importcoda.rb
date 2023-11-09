@@ -47,18 +47,19 @@ class ImportCoda
 			iban = parsed_content[0]['account']['number']
 			raise 'IBAN not found' if iban.empty?
 
+			iban.strip!
 			account = find_account(iban, accounts)
 			unless account
-				puts "#{file}: Skip file"
+				puts "#{File.basename(file)}: Skip file (IBAN #{iban})"
 				return true
 			end
 
 			result = ApiClient.new(domain, account['apikey']).post('coda/import', content)
-			puts "#{file}: Upload for #{account['name']} (#{result['transactions_success_count']}/#{result['transactions_count']} transactions)"
+			puts "#{File.basename(file)}: Upload for #{account['name']} (#{result['transactions_success_count']}/#{result['transactions_count']} transactions)"
 
 			return true;
 		rescue => e
-			puts "#{file}: Could not process"
+			puts "#{File.basename(file)}: Could not process"
 			puts e.message
 
 			return false
