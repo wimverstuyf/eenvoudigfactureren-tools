@@ -26,12 +26,12 @@ class ImportCoda
 	end
 
 	def load_config
-		return YAML.load_file("#{File.dirname(__FILE__)}/importcoda.yml") if File.exists? "#{File.dirname(__FILE__)}/importcoda.yml"
-        abort "Config file importcoda.yml not found"
+		return YAML.load_file("#{File.dirname(__FILE__)}/importcoda.yml") if File.exist? "#{File.dirname(__FILE__)}/importcoda.yml"
+		abort "Config file importcoda.yml not found"
 	end
 
 	def check_path(path)
-		abort "Path #{path} doesn't exist" unless File.exists?(path) and File.directory?(path)
+		abort "Path #{path} doesn't exist" unless File.exist?(path) and File.directory?(path)
 		abort "Can't move files in path #{path}" unless File.writable?(path)
 	end
 

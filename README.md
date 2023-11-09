@@ -10,14 +10,14 @@ Download and install Ruby from http://rubyinstaller.org/downloads/ (latest versi
 
 After installation execute in command prompt:
 ```
-gem install rest-client fileutils yaml json
+gem install rest-client fileutils yaml json ffi
 ```
 
 ## Install on Linux
 
 ```
 apt install ruby
-gem install rest-client fileutils yaml json
+gem install rest-client fileutils yaml json ffi
 ```
 
 # Usage
