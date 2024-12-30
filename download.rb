@@ -147,14 +147,14 @@ class Download
 
 	def list(apikey, file_type, filter_from, filter_until, filter_tag)
 		querystring = '&filter='
-		querystring += 'date__ge__' + filter_from + ',' if filter_from
-		querystring += 'date__le__' + filter_until + ',' if filter_until
+		querystring += "date__ge__#{filter_from}," if filter_from
+		querystring += "date__le__#{filter_until}," if filter_until
 
 		if filter_tag
 			if filter_tag =~ /^not:/
-				querystring += 'tag__ne__' + filter_tag[4..] + ','
+				querystring += "tag__ne__#{filter_tag[4..]},"
 			else
-				querystring += 'tag__eq__' + filter_tag + ','
+				querystring += "tag__eq__#{filter_tag},"
 			end
 		end
 
@@ -240,11 +240,16 @@ class Download
 	end
 
 	def build_path(path, date)
-		path = path.gsub('{yyyy}', Date.today.year.to_s)
-		path = path.gsub('{mm}', Date.today.strftime("%m"))
-		path = path.gsub('{dd}', Date.today.strftime("%d"))
-		path = path.gsub('{yyyy-mm}', Date.today.strftime("%Y-%m"))
-		path = path.gsub('{yyyy-mm-dd}', Date.today.strftime("%Y-%m-%d"))
+		date = Date.parse(date)
+
+		path = path.gsub('{yyyy}', date.year.to_s)
+		path = path.gsub('{mm}', date.strftime("%m"))
+		path = path.gsub('{dd}', date.strftime("%d"))
+		path = path.gsub('{yyyy-mm}', date.strftime("%Y-%m"))
+		path = path.gsub('{yyyy-mm-dd}', date.strftime("%Y-%m-%d"))
+
+		current_quarter = ((date.month - 1) / 3) + 1
+		path = path.gsub('{q}', current_quarter.to_s)
 
 		unless Dir.exist?(path)
 		  FileUtils.mkdir_p(path)
