@@ -113,3 +113,82 @@ ruby importcoda.rb
 Once processed the CODA file will be moved to the out-path.
 
 Run command in scheduler to automatically process CODA files.
+
+## Download files
+
+Download invoices or other documents as PDF or UBL file for one or more accounts on EenvoudigFactureren.
+
+### Setup
+
+There are several scenarios for setting up the script. Update YAML file download.yml according to your scenario.
+
+An API-key is required to access the account on EenvoudigFactureren. Get the API-key from the "Access Control" page in the account.
+
+You can download files for invoices, receipts, quotes, orders, deliveries, paymentrequests and customdocuments.
+
+The format is pdf by default. For invoices you can also set ubl or peppol as format.
+
+The paths can use the variable {yyyy}, {mm} and {dd} to set the current date.
+
+You can optionally filter the documents by date (from and until) and wether a tag has been set for the document. The tag is mainly used to filter invoices that have not yet been sent to the accountant (tag: not:accountant).
+For dates you can use the wildcards: MONTH, PREVMONTH, NEXTMONTH, QUARTER, PREVQUARTER, NEXTQUARTER, YEAR, PREVYEAR, NEXTYEAR
+
+For invoices you can perform the "mark as sent to accountant" action. This will set the invoices as sent to the accountant. In combination with "tag: not:accountant" this will enable you to only download the invoice once.
+
+#### Setup for one account
+
+Set up the script to download files for a single account.
+
+Example download.yml:
+
+```
+domain: eenvoudigfactureren.be
+path: c:\path\{yyyy}\{mm}
+apikey: MY-APIKEY-1
+type: invoices
+format: pdf
+filter:
+  from: PREVMONTH
+  until: MONTH
+  tag: not:accountant
+action: mark-sent-accountant
+```
+
+#### Setup for multiple accounts
+
+Download files for multiple accounts.
+
+Remarks:
+- For every account on EenvoudigFactureren add an account in the YAML file.
+- The name of the account is only used for clarity.
+- Filters and action can be set globally or per account.
+
+Example download.yml:
+
+```
+domain: eenvoudigfactureren.be
+type: invoices
+format: pdf
+filter:
+  from: PREVQUARTER
+  tag: not:accountant
+action: mark-sent-accountant
+accounts:
+  - 
+    name: Company 1
+    apikey: MY-APIKEY-1
+    filter:
+      from: 2024-01-01
+  -
+    name: Company 2
+    apikey: MY-APIKEY-2
+```
+
+### Run
+
+Run in command prompt:
+```
+ruby download.rb
+```
+
+Run command in scheduler to automatically download files.

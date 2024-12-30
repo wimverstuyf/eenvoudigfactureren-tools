@@ -1,0 +1,17 @@
+domain: eenvoudigfactureren.be
+path: c:\path\{yyyy}\{mm}
+type: invoices
+format: ubl
+
+filter:
+  from: PREVQUARTER
+  tag: not:accountant
+action: mark-sent-accountant
+
+accounts:
+  - 
+    name: Company 1
+    apikey: MY-APIKEY-1
+  -
+    name: Company 2
+    apikey: MY-APIKEY-2
