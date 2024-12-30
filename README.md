@@ -130,7 +130,7 @@ The format is pdf by default. For invoices you can also set ubl or peppol as for
 
 The paths can use the variable {yyyy}, {mm} and {dd} to set the current date.
 
-You can optionally filter the documents by date (from and until) and wether a tag has been set for the document. The tag is mainly used to filter invoices that have not yet been sent to the accountant (tag: not:accountant).
+You can optionally filter the documents by date (from and until) and whether a tag has been set for the document. The tag is mainly used to filter invoices that have not yet been sent to the accountant (tag: not:accountant).
 For dates you can use the wildcards: MONTH, PREVMONTH, NEXTMONTH, QUARTER, PREVQUARTER, NEXTQUARTER, YEAR, PREVYEAR, NEXTYEAR
 
 For invoices you can perform the "mark as sent to accountant" action. This will set the invoices as sent to the accountant. In combination with "tag: not:accountant" this will enable you to only download the invoice once.
@@ -161,14 +161,14 @@ Download files for multiple accounts.
 Remarks:
 - For every account on EenvoudigFactureren add an account in the YAML file.
 - The name of the account is only used for clarity.
-- Filters and action can be set globally or per account.
+- Path, filters and action can be set globally or per account.
 
 Example download.yml:
 
 ```
 domain: eenvoudigfactureren.be
 type: invoices
-format: pdf
+format: ubl
 filter:
   from: PREVQUARTER
   tag: not:accountant
@@ -177,11 +177,13 @@ accounts:
   - 
     name: Company 1
     apikey: MY-APIKEY-1
+    path: c:\path\company1\{yyyy}\{mm}
     filter:
       from: 2024-01-01
   -
     name: Company 2
     apikey: MY-APIKEY-2
+    path: c:\path\company2\{yyyy}\{mm}
 ```
 
 ### Run
