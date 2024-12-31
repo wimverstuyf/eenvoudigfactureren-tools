@@ -166,6 +166,7 @@ class Download
 
 	def download(apikey, document_id, file_type, file_format, path)
 		file_format = 'ublbe' if file_type == 'ubl'
+		file_format = 'peppolbis3' if file_type == 'peppol'
 
 		content, filename = ApiClient.new(@domain, apikey).download("/api/v1/#{file_type}/#{document_id}?format=#{file_format}")
 		filename = "#{document_id}.pdf" if filename == nil && file_format == 'pdf'

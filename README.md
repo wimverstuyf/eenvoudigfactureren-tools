@@ -128,7 +128,7 @@ You can download files for invoices, receipts, quotes, orders, deliveries, payme
 
 The format is pdf by default. For invoices you can also set ubl or peppol as format.
 
-The paths can use the variable {yyyy}, {mm} and {dd} to set the current date.
+The paths can use the variable {yyyy}, {mm}, {dd} and {q} to set the current date.
 
 You can optionally filter the documents by date (from and until) and whether a tag has been set for the document. The tag is mainly used to filter invoices that have not yet been sent to the accountant (tag: not:accountant).
 For dates you can use the wildcards: MONTH, PREVMONTH, NEXTMONTH, QUARTER, PREVQUARTER, NEXTQUARTER, YEAR, PREVYEAR, NEXTYEAR
